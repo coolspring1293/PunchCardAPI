@@ -8,7 +8,7 @@ class PingController extends AbstractActionController
 {
     public function pingAction()
     {
-    	return new ViewModel(array(
+        return new ViewModel(array(
             'ack' => time()
         ));
     }
