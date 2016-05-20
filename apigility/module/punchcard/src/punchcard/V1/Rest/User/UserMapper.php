@@ -40,7 +40,9 @@ class UserMapper
         }
 
         $entity = new UserEntity();
+
         $entity->exchangeArray($data[0]);
+        $entity->rank = 1042;
         return $entity;
     }
     

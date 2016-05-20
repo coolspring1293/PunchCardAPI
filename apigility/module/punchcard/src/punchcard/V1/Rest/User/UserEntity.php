@@ -30,7 +30,12 @@ class UserEntity
     public $last_activity_date;
 
     // UserEntity only, not stored in database.
-    //public $rank;
+    public $rank = 10086;
+
+    public function __construct() {
+        $this->rank = 10086;
+    }
+
 
     public function getArrayCopy()
     {
@@ -42,7 +47,7 @@ class UserEntity
             'streak_days'        => $this->streak_days,
             'gold_coin_amount'   => $this->gold_coin_amount,
             'last_activity_date' => $this->last_activity_date,
-            //'rank'               => $this->id,
+            'rank'               => $this->rank,
         );
     }
 
@@ -55,7 +60,7 @@ class UserEntity
         $this->streak_days          = $array['streak_days'];
         $this->gold_coin_amount     = $array['gold_coin_amount'];
         $this->last_activity_date   = $array['last_activity_date'];
-        //$this->rank                 = $array['rank'];
+        $this->rank                 = 10076;
     }
 
 
