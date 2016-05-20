@@ -22,7 +22,7 @@ return array(
         'punchcard\\V1\\Rest\\User\\Controller' => array(
             'listener' => 'punchcard\\V1\\Rest\\User\\UserResource',
             'route_name' => 'punchcard.rest.user',
-            'route_identifier_name' => 'id',
+            'route_identifier_name' => 'user_id',
             'collection_name' => 'user',
             'entity_http_methods' => array(
                 0 => 'GET',
@@ -35,7 +35,7 @@ return array(
                 1 => 'POST',
             ),
             'collection_query_whitelist' => array(),
-            'page_size' => 25,
+            'page_size' => '-1',
             'page_size_param' => null,
             'entity_class' => 'punchcard\\V1\\Rest\\User\\UserEntity',
             'collection_class' => 'punchcard\\V1\\Rest\\User\\UserCollection',
@@ -65,35 +65,27 @@ return array(
             'punchcard\\V1\\Rest\\User\\UserEntity' => array(
                 'entity_identifier_name' => 'id',
                 'route_name' => 'punchcard.rest.user',
-                'route_identifier_name' => 'id',
+                'route_identifier_name' => 'user_id',
                 'hydrator' => 'Zend\\Hydrator\\ArraySerializable',
             ),
             'punchcard\\V1\\Rest\\User\\UserCollection' => array(
                 'entity_identifier_name' => 'id',
                 'route_name' => 'punchcard.rest.user',
-                'route_identifier_name' => 'id',
+                'route_identifier_name' => 'user_id',
                 'is_collection' => true,
             ),
         ),
     ),
     'zf-apigility' => array(
-        'db-connected' => array(
-            'punchcard\\V1\\Rest\\User\\UserResource' => array(
-                'adapter_name' => 'db_pc',
-                'table_name' => 'user',
-                'hydrator_name' => 'Zend\\Hydrator\\ArraySerializable',
-                'controller_service_name' => 'punchcard\\V1\\Rest\\User\\Controller',
-                'entity_identifier_name' => 'id',
-                'table_service' => 'punchcard\\V1\\Rest\\User\\UserResource\\Table',
-            ),
-        ),
+        'db-connected' => array(),
     ),
-    'zf-content-validation' => array(
-        'punchcard\\V1\\Rest\\User\\Controller' => array(
-            'input_filter' => 'punchcard\\V1\\Rest\\User\\Validator',
-        ),
-    ),
+    'zf-content-validation' => array(),
     'input_filter_specs' => array(
         'punchcard\\V1\\Rest\\User\\Validator' => array(),
+    ),
+    'service_manager' => array(
+        'factories' => array(
+            'punchcard\\V1\\Rest\\User\\UserResource' => 'punchcard\\V1\\Rest\\User\\UserResourceFactory',
+        ),
     ),
 );

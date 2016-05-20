@@ -8,8 +8,18 @@ class PingController extends AbstractActionController
 {
     public function pingAction()
     {
-        return new ViewModel(array(
-            'ack' => time()
-        ));
+
+
+        $tt = [1, 2, 3];
+        return $tt;
+//        return new ViewModel(array(
+//            array(
+//                time(),
+//                time(),
+//            ),
+//            array(
+//                time(),
+//            ),
+//        ));
     }
 }
