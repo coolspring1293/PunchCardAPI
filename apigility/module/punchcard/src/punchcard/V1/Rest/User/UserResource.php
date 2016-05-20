@@ -3,12 +3,21 @@ namespace punchcard\V1\Rest\User;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
+use StatusLib\MapperInterface;
 
 class UserResource extends AbstractResourceListener
 {
 
     protected $mapper;
 
+//    public function __construct($mapper)
+//    {
+//        $this->mapper = $mapper;
+//    }
+    /***
+     * UserResource constructor.
+     * @param MapperInterface $mapper
+     */
     public function __construct($mapper)
     {
         $this->mapper = $mapper;
@@ -21,7 +30,7 @@ class UserResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        return new ApiProblem(405, 'The POST method has not been defined');
+        return $this->mapper->create($data);
     }
 
     /**
