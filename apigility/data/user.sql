@@ -1,6 +1,6 @@
 Create table user(
 	id INTEGER primary key,
-	user_name varchar(32) NOT NULL,
+	user_name varchar(32) NOT NULL UNIQUE,
 	nick_name varchar(32),
 	password_hash varchar(128) NOT NULL,
 	streak_days int NOT NULL,
