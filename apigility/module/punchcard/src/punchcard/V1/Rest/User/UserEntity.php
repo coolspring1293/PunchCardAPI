@@ -59,9 +59,9 @@ class UserEntity
             'name'              => $this->nick_name,
             'password_hash'     => $this->password_hash,
 
-            'password_hash'     => md5(crypt($this->password_hash,
-                    substr($this->password_hash, 0, 2)) + time()),
-
+//            'password_hash'     => md5(crypt($this->password_hash,
+//                    substr($this->password_hash, 0, 2)) + time()),
+            'password_hash'     => $this->password_hash,
             'continuousDays'    => $this->streak_days,
             'goldCoinAmount'    => $this->gold_coin_amount,
             'lastActivityDate'  => $this->last_activity_date,
@@ -81,9 +81,15 @@ class UserEntity
         $this->rank                 = $cur_rank['rank'];
     }
     
-    public function createEntityByRegister($userName, $passworo_hash) {
-        $this->user_name = $userName;
-        $this->password_hash = $passworo_hash;
+    public function createEntityByRegister($userName, $password_hash, $nickName) {
+        $this->id                   = null;
+        $this->user_name            = $userName;
+        $this->nick_name            = $nickName;
+        $this->password_hash        = $password_hash;
+        $this->streak_days          = 0;
+        $this->gold_coin_amount     = 0;
+        $this->last_activity_date   = date('Y-m-d', time());
+        $this->rank                 = -1;
     }
 
 

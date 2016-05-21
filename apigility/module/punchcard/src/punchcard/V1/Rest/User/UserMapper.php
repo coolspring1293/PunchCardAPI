@@ -57,8 +57,17 @@ class UserMapper
      */
     public function fetchOne($userID)
     {
+
+        session_start();
+        /*
+        if(!$_SESSION['id']) {
+            $_SESSION['id'] = 1;
+            return array('null',$_SESSION['id'], );
+        }
+*/
         $sql = 'SELECT * FROM ' . $this->table_name .' WHERE id = ?';
         $resultset = $this->adapter->query($sql, array($userID));
+
         $data = $resultset->toArray();
         if (!$data) {
             return false;
@@ -74,6 +83,7 @@ class UserMapper
         $entity = new UserEntity();
         $entity->exchangeArray($data[0], $data2[0]);
         return $entity;
+        //return array(1, 2);
     }
 
     /**
@@ -102,16 +112,44 @@ class UserMapper
         $register_nickname  = $tt['name'];
         $register_pwd       = $tt['password_hash'];
 
-        $sql = "insert into user(user_name, nick_name, password_hash, streak_days, gold_coin_amount, last_activity_date)".
-            "values(\"$register_name\", \"$register_nickname\", \"$register_pwd\", 0, 0, \"2016-05-18\")";
-        $resultset = $this->adapter->query($sql);
-        //$entity = new UserEntity();
-        //$entity->createEntityByRegister($register_id, $register_pwd);
+        if (!$register_name or !$register_pwd) {
+            return  new ApiProblem(403, 'Forbidden Option');
+        }
 
-        return $tt;
+        $sql = "insert into $this->table_name" .
+            "(user_name, nick_name, password_hash, streak_days, gold_coin_amount, last_activity_date)" .
+            "values(?, ?, ?, 0, 0, ". date('Y-m-d', time()) . ")";
+        $this->adapter->query($sql, array($register_name, $register_nickname, $register_pwd));
+
+        $sql = "SELECT * from $this->table_name where user_name = ? and password_hash = ?";
+        $resultset = $this->adapter->query($sql, array($register_name, $register_pwd));
+        $info = $resultset->toArray();
+        if (!$info) {
+            return false;
+        }
+        return $this->fetchOne($info[0]['id']);
 
     }
     
+    // for testing
+    public function login($data)
+    {
+        $user = $this->object_to_array($data);
+        $user_name = $user['userName'];
+        $user_pwd  = $user['password_hash'];
+
+        $sql = "SELECT * from $this->table_name where user_name = ? and password_hash = ?";
+        $resultset = $this->adapter->query($sql, array($user_name, $user_pwd));
+        $info = $resultset->toArray();
+
+        if (!$info) {
+            return false;
+        }
+
+        return $this->fetchOne($info[0]['id']);
+    }
+
+
 
 
 

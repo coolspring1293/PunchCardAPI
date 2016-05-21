@@ -11,11 +11,22 @@ return array(
                     ),
                 ),
             ),
+            'punchcard.rpc.log-in' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/login',
+                    'defaults' => array(
+                        'controller' => 'punchcard\\V1\\Rpc\\LogIn\\Controller',
+                        'action' => 'logIn',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
         'uri' => array(
             0 => 'punchcard.rest.user',
+            1 => 'punchcard.rpc.log-in',
         ),
     ),
     'zf-rest' => array(
@@ -48,6 +59,7 @@ return array(
     'zf-content-negotiation' => array(
         'controllers' => array(
             'punchcard\\V1\\Rest\\User\\Controller' => 'HalJson',
+            'punchcard\\V1\\Rpc\\LogIn\\Controller' => 'Json',
         ),
         'accept_whitelist' => array(
             'punchcard\\V1\\Rest\\User\\Controller' => array(
@@ -55,9 +67,18 @@ return array(
                 1 => 'application/hal+json',
                 2 => 'application/json',
             ),
+            'punchcard\\V1\\Rpc\\LogIn\\Controller' => array(
+                0 => 'application/vnd.punchcard.v1+json',
+                1 => 'application/json',
+                2 => 'application/*+json',
+            ),
         ),
         'content_type_whitelist' => array(
             'punchcard\\V1\\Rest\\User\\Controller' => array(
+                0 => 'application/vnd.punchcard.v1+json',
+                1 => 'application/json',
+            ),
+            'punchcard\\V1\\Rpc\\LogIn\\Controller' => array(
                 0 => 'application/vnd.punchcard.v1+json',
                 1 => 'application/json',
             ),
@@ -89,6 +110,20 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'punchcard\\V1\\Rest\\User\\UserResource' => 'punchcard\\V1\\Rest\\User\\UserResourceFactory',
+        ),
+    ),
+    'controllers' => array(
+        'factories' => array(
+            'punchcard\\V1\\Rpc\\LogIn\\Controller' => 'punchcard\\V1\\Rpc\\LogIn\\LogInControllerFactory',
+        ),
+    ),
+    'zf-rpc' => array(
+        'punchcard\\V1\\Rpc\\LogIn\\Controller' => array(
+            'service_name' => 'LogIn',
+            'http_methods' => array(
+                0 => 'POST',
+            ),
+            'route_name' => 'punchcard.rpc.log-in',
         ),
     ),
 );

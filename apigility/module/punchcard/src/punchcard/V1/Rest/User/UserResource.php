@@ -10,10 +10,6 @@ class UserResource extends AbstractResourceListener
 
     protected $mapper;
 
-//    public function __construct($mapper)
-//    {
-//        $this->mapper = $mapper;
-//    }
     /***
      * UserResource constructor.
      * @param MapperInterface $mapper
