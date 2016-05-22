@@ -11,6 +11,7 @@ php -S 0.0.0.0:8888 -ddisplay_errors=0 -t public public/index.php```
 ## GET: Select
 - get all user info (return User[]): http://localhost:8888/user
 - get a user by id (return User): http://localhost:8888/user/id
+- get a user by me (return User)（After log in）: http://localhost:8888/user/me
 
 
 ## POST: Create
@@ -24,7 +25,7 @@ php -S 0.0.0.0:8888 -ddisplay_errors=0 -t public public/index.php```
 }
 ```
 
-- log in (return User without ID): http://localhost:8888/login
+- log in (return User without ID, store cookies of user info): http://localhost:8888/login
 
 ```
 {
@@ -34,8 +35,14 @@ php -S 0.0.0.0:8888 -ddisplay_errors=0 -t public public/index.php```
 }
 ```
 
-## PUT: Update
-> wait a moment!
+## POST: Update
+- update user earned coins(return User without ID): http://localhost:8888/me
+```
+{
+	"earnedCoin": 20
+}
+```
+
 
 # Zend Framework 2
 Apigility can be used to implement APIs in PHP. We developed Apigility using Zend Framework 2, but this doesn't mean you have to use this framework to develop your API. You can use Apigility in any PHP application, using all the libraries and frameworks that you want.
